@@ -24,10 +24,32 @@
         }
         .overlay-dark { background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%); }
         
-        /* ZOOM TURBO - Remove legendas das bordas */
-        .video-container video {
-            transform: scale(1.4);
-            transform-origin: center center;
+        /* ZOOM TURBO DESKTOP - Força o preenchimento total da tela */
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            pointer-events: none;
+        }
+
+        /* Ajuste específico para vídeos verticais em telas horizontais */
+        @media (min-aspect-ratio: 16/9) {
+            #player {
+                width: 320%; /* Zoom agressivo para cobrir as laterais no desktop */
+                height: 320%;
+            }
+        }
+        /* Ajuste para telas mais quadradas ou tablets */
+        @media (max-aspect-ratio: 16/9) {
+            #player {
+                width: 150%; 
+                height: 150%;
+            }
         }
 
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
@@ -37,11 +59,11 @@
 <body class="bg-slate-50 text-slate-900 overflow-x-hidden">
 
     <section id="inicio" class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-        <div class="absolute inset-0 z-0">
-            <div class="overlay-dark absolute inset-0 z-10 pointer-events-none"></div>
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div class="overlay-dark absolute inset-0 z-10"></div>
             
-            <div class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
-                <div id="player" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300%] h-[300%] md:w-[150%] md:h-[150%]"></div>
+            <div class="video-background">
+                <div id="player" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
             </div>
         </div>
 
@@ -55,16 +77,16 @@
         </button>
 
         <div class="relative z-20 text-center px-4 max-w-5xl">
-            <span class="text-gold font-bold tracking-[0.4em] uppercase mb-6 block text-sm md:text-base animate-bounce text-shadow-lg">A oportunidade da sua vida</span>
-            <h1 class="text-white text-5xl md:text-8xl font-black mb-8 leading-none drop-shadow-2xl">
-                O Espetáculo <br><span class="text-gold italic">Começou.</span>
+            <span class="text-gold font-bold tracking-[0.4em] uppercase mb-6 block text-sm md:text-base animate-bounce">A oportunidade da sua vida</span>
+            <h1 class="text-white text-5xl md:text-8xl font-black mb-8 leading-none drop-shadow-2xl uppercase italic">
+                O Espetáculo <br><span class="text-gold">Começou.</span>
             </h1>
             <p class="text-gray-100 text-lg md:text-2xl mb-12 font-medium max-w-2xl mx-auto drop-shadow-lg">
                 More na Avenida 31 de Março. Onde a história de São João del-Rei encontra o seu novo lar.
             </p>
             <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
                 <a href="#cadastro" class="btn-turbo text-slate-900 px-10 py-5 rounded-full font-extrabold text-xl uppercase tracking-tighter">
-                    Faça seu Cadastro Agora
+                    Faça seu cadastro agora
                 </a>
                 <a href="https://wa.me/5532999204863" target="_blank" class="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-5 rounded-full font-bold text-lg hover:bg-white/20 transition">
                     WhatsApp do Vinícius
